@@ -1,0 +1,38 @@
+; Summing an Array (SumArray.asm)
+
+; This program sums an array elements
+
+include c:\irvine\irvine32.inc
+
+.data
+arr1 dword 10h,20h,30h,40h
+arr2 word 4 dup (?)
+
+.code
+main proc
+
+	mov  edi,OFFSET arr1            ; 1: EDI is address of the first byte in arr1
+	mov  ecx,LENGTHOF arr1  		; 2: initialize loop counter
+	sub eax, eax					; 3: sum = 0
+L1:									; 4: mark beginning of loop
+	add  eax,[edi]					; 5: add an integer, notice the size of the destination 
+	add edi, type arr1   	   		; 6: point to next element
+	loop L1							; 7: repeat until ECX = 0
+	call writeHex
+    ;********************************** 
+	; copy arr1 to arr2 
+	;**********************************
+    mov  esi,offset arr1    		; esi the address of arr1
+	mov  edi, offset arr2			; edi the address of arr1
+	mov  ecx,lengthof arr1	        ; loop counter
+L2:
+	mov  ax,[esi]	        	    ; get a word from source
+	mov  [edi], ax       		    ; store it in the target
+	add esi, type arr1			    ; move to next element
+	add edi, type arr2
+	loop L2					        ; repeat 
+
+
+exit
+main endp
+end main

@@ -1,0 +1,205 @@
+;My name is not here
+;10/30/2019
+;this program will input values for num1, num2, and num3
+;then it will calculate ((num1 ^ 3) * num2 + 5 * ( num2 ^ 2)) / num3 
+
+INCLUDE C:\irvine\irvine32.inc
+
+.data
+	num1 dword 1
+	num2 dword 1
+	num3 dword 1
+	num4 dword 1
+	num5 dword 1
+	num6 dword 1
+	num7 dword 1
+	num8 dword 1
+	num9 dword 1
+	num10 dword 1
+	
+	string11 BYTE "Please enter a number:" , 20h, 0
+	string12 BYTE "The sum is:" , 20h, 0
+	string13 BYTE "The mean is:" , 20h, 0
+	string14 BYTE "The original array:" , 0ah, 0dh, 0
+	string15 BYTE "After a rotation:" , 0ah, 0dh, 0
+	string16 BYTE "Press any key to continue..." , 0ah, 0dh, 0
+	spacestring BYTE 20h, 0
+	remainderstring BYTE "/10" , 0
+
+
+
+
+.code
+main proc
+	
+	;populating array with user inputs
+	;please enter a number (x10)
+
+
+	mov edx , OFFSET string11
+	call writeString			
+
+	call ReadInt
+	mov  num1 , eax
+	call crlf
+
+	mov edx , OFFSET string11
+	call writeString	
+
+	call ReadInt
+	mov  num2 , eax
+	call crlf
+	
+	mov edx, OFFSET string11
+	call writeString			
+
+	call ReadInt
+	mov  num3 , eax
+	call crlf
+
+	mov edx , OFFSET string11
+	call writeString			
+
+	call ReadInt
+	mov  num4 , eax
+	call crlf
+
+	mov edx , OFFSET string11
+	call writeString	
+
+	call ReadInt
+	mov  num5 , eax
+	call crlf
+	
+	mov edx, OFFSET string11
+	call writeString			
+
+	call ReadInt
+	mov  num6 , eax
+	call crlf
+
+	mov edx , OFFSET string11
+	call writeString			
+
+	call ReadInt
+	mov  num7 , eax
+	call crlf
+
+	mov edx , OFFSET string11
+	call writeString	
+
+	call ReadInt
+	mov  num8 , eax
+	call crlf
+	
+	mov edx, OFFSET string11
+	call writeString			
+
+	call ReadInt
+	mov  num9 , eax
+	call crlf
+	
+	mov edx, OFFSET string11
+	call writeString			
+
+	call ReadInt
+	mov  num10 , eax
+	call crlf
+
+	;sum of all numbers
+	mov eax , 0
+	add eax , num1
+	add eax , num2
+	add eax , num3
+	add eax , num4
+	add eax , num5
+	add eax , num6
+	add eax , num7
+	add eax , num8
+	add eax , num9
+	add eax , num10
+	mov edx, OFFSET string12
+	call writeString
+	call writeDec
+	call crlf
+	call crlf
+
+	;mean of all numbers
+	mov ebx, 10
+	mov edx, 0
+	div ebx
+	mov edx, OFFSET string13
+	call writestring
+	call writeDec
+	mov edx, OFFSET spacestring
+	call writeString
+	mov eax, ebx
+	call writeDec
+	mov edx, OFFSET remainderstring
+	call writeString
+	call crlf
+	
+	;the original array
+	mov edx, OFFSET string14
+	call writeString
+	
+	;move num to eax, print decimal, mov space to edx, print the "string" (which is a space), repeat x10
+	mov eax , num1
+	call writeDec
+	mov edx, OFFSET spacestring
+	call writeString
+	
+	mov eax, num2
+	call writeDec
+	mov edx, OFFSET spacestring
+	call writeString
+
+	mov eax, num3
+	call writeDec
+	mov edx, OFFSET spacestring
+	call writeString
+
+	mov eax, num4
+	call writeDec
+	mov edx, OFFSET spacestring
+	call writeString
+
+	mov eax, num5
+	call writeDec
+	mov edx, OFFSET spacestring
+	call writeString
+
+	mov eax, num6
+	call writeDec
+	mov edx, OFFSET spacestring
+	call writeString
+
+	mov eax, num7
+	call writeDec
+	mov edx, OFFSET spacestring
+	call writeString
+
+	mov eax, num8
+	call writeDec
+	mov edx, OFFSET spacestring
+	call writeString
+
+	mov eax, num9
+	call writeDec
+	mov edx, OFFSET spacestring
+	call writeString
+
+	mov eax, num10
+	call writeDec
+	mov edx, OFFSET spacestring
+	call writeString
+
+
+	exit
+
+
+
+exit
+main endp
+
+end main

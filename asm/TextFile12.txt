@@ -1,0 +1,140 @@
+
+
+
+Title Assignment 7
+
+COMMENT !
+*****************
+date:
+*****************
+!
+
+include c:\irvine\irvine32.inc
+; ===============================================
+.data
+  
+  ; Fill your data here
+  sillystring BYTE "Enter up to 40 unsigned dword integers. To end the array, enter 0." , 20h, 0
+  stringcheese BYTE "After each element press enter:" , 20h, 0
+
+  ARR dword 40 dup (0)
+
+;=================================================
+.code
+main proc
+
+  
+    
+	; FILL YOUR CODE HERE 
+	; YOU NEED TO CALL ENTER_ELEM, SORT_ARR AND PRINT_ARR PROCEDURES
+	; 
+	
+	mov edx offset sillystring
+	call writestring
+	call crlf
+	mov edx offset stringcheese
+	call writestring 
+	call crlf
+
+
+
+
+	;enter_elem (pointer ARR_ADDRESS, pointer ARR_Length) through stack
+	
+
+	;ebx is index/array size, will be modified to fit both purposes through addition/subtraction
+
+
+   exit
+main endp
+
+; ================================================
+; void enter_elem(arr_addr)
+;
+; Input:
+;   ARR_ADDRESS THROUGH THE STACK
+; Output:
+;   ARR_LENGTH THROUGH THE STACK
+; Operation:
+;   Fill the array and count the number of elements
+;
+enter_elem proc
+	
+    ; FILL YOUR CODE HERE
+
+	;ebx will be index/array size, will be modified to fit both purposes through addition/subtraction
+
+
+enter_elem endp
+
+; ================================================
+; void print_arr(arr_addr,arr_len)
+;
+; Input:
+;   ?
+; Output:
+;   ?
+; Operation:
+;  print out the array
+;
+
+print_arr proc
+
+  ; FILL YOUR CODE HERE
+
+print_arr endp
+
+; ================================================
+; void sort_arr(arr_addr,arr_len)
+;
+; Input:
+;   ?
+; Output:
+;   ?
+; Operation:
+;   sort the array
+;
+
+sort_arr proc
+
+   ; FILL YOUR CODE HERE
+   ; YOU NEED TO CALL COMPARE_AND_SWAP PROCEDURE 
+
+sort_arr endp
+
+; ===============================================
+; void compare_and_swap(x_addr,y_addr)
+;
+; Input:
+;   ?
+; Output:
+;   ?
+; Operation:
+;  compare and call SWAP ONLY IF Y > X 
+;
+
+compare_and_swap proc
+
+   ; FILL YOUR CODE HERE
+   ; YOU NEED TO CALL SWAP PROCEDURE 
+
+compare_and_swap endp
+
+; =================================================
+; void swap(x_addr,y_addr)
+;
+; Input:
+;   ?
+; Output:
+;   ?
+; Operation:
+;  swap the two inputs
+;
+
+swap proc
+
+   ; FILL YOUR CODE HERE
+
+swap endp
+
+end main

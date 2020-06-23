@@ -1,0 +1,73 @@
+					
+
+; Description: - basics of procedure calls 
+;              - using registers to pass parameters
+
+
+INCLUDE c:\irvine\irvine32.inc
+
+;; use the debugger to step through the code below with nested calls 
+;; 1. answer the questions
+;; 2. identify which call goes with which return by numbering them together
+;;     call 1 goes with ret 1, call 2 goes with ret 2, etc. so you can
+;;     see how deep the stack frames go
+;; 2. observe when ESP changes value and explain why it does
+
+
+
+.data
+
+.code
+main PROC
+
+; write code to clear out eax 
+mov eax, 0
+
+; explain what happens with each step
+; and if there is any change to the stack
+mov ax,3		; eax : 00 00 00 03
+mov bx,4		; eax : ?? ?? 00 04
+call add1		; esp -= 4, eip = first instruction, line39, in add1 , &31 pushed to stack
+call writeDec	;  print out 7 (it is 7 at the point when you get to this line)
+call crlf		; print \n
+
+exit
+main ENDP
+
+
+add1 PROC
+add ax,bx		; eax = 00 00 00 07
+call test1		; esp -=4 , first instruction, line 56, in test1 , &41 pushed to stack
+ret				; pop eip, go to &31
+				; what happens if there is no ret here?
+add1 ENDP
+
+
+test2 PROC		; 
+mov dx,200h		; edx : ?? ?? 02 00
+				; Show what the stack looks like (with all its values 
+				; in order in the stack) when execution reaches this line
+				; How many stack frames are there at this point?
+ret				; pop eip, go to line 68
+test2 ENDP
+
+
+test1 PROC
+mov cx,1		; ecx : ?? ?? 00 01
+push eax        ; push 7 to stack
+
+mov ax, 10		; eax : 00 00 00 0A
+
+call writeDec	; print out "10"
+
+pop eax			; eax : 00 00 00 07
+
+call crlf		; print out \n
+
+call test2		; esp -=4, eip = first instruction in test2, line 47, & 68 pushed to stack
+mov dx, 300h	; edx : ?? ?? 03 00
+ret				; pop eip, &41
+test1 ENDP
+
+
+END main

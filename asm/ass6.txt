@@ -1,0 +1,133 @@
+COMMENT !
+Prints out all prime numbers up to a user given input
+11/14/2019
+!
+
+
+INCLUDE c:\irvine\irvine32.inc
+
+
+.data
+
+	string11 BYTE "Please enter a number:" , 20h, 0
+	string12 BYTE "Primes found until the given number:" , 20h, 0
+	string13 BYTE "No primes." , 20h, 0
+
+
+	userNum dword 0
+	testNum dword 0
+	testNum2 dword 0
+
+.code
+main PROC
+	
+	mov edx, OFFSET string11
+	call writestring
+	
+	call readInt
+	call crlf
+
+	mov edx, OFFSET string12
+	call writestring
+	call crlf
+
+	;ASSUME 1 ISN'T PRIME
+	cmp eax, 1
+	JBE skipPrime
+
+	;ebx is userNum, the number we will check primes up to
+	mov userNum, eax
+	mov ebx, eax
+	mov testNum, 2
+
+	
+	;while (testNum < userNum) {isPrime (testNum); testNum++;}
+	;loops infinitely, but...
+	L1:
+
+	;if testNum, the current iteration, is larger than ebx, the user given number, exit this loop, and end the program
+	cmp testNum, ebx
+	JA exitProg
+
+	;set eax to testNum
+	mov eax, testNum
+	;call writeDec
+	call isPrime
+
+	add testNum, 1
+
+	JMP L1
+
+
+	
+	jmp exitProg
+
+	;only runs if use inputs 0
+	skipPrime:
+	mov edx, OFFSET string13
+	call writestring
+
+	exitProg:
+	xor eax, eax
+
+exit
+main endp
+
+;recieves "testNum", the current number we are checking to be prime
+;doesn't "return" anything because it just prints out the number if it is prime
+;but technically it could "return" a variable just by moving a number into a register
+;so it just "returns" the number itself, if it's prime
+isPrime PROC
+
+	;call crlf
+	
+	;eax is testNum, the current number we are checking to see whether or not is prime
+	;testNum2 is the number, starting from two, that we are incrementing upwards
+	;had to use a global variable :C
+	mov testNum2, 2
+
+	;loops infinitely, but...
+	primeLoop:
+
+	;while (testNum2 < testNum) {if (testNum%testNum2 == 0){return;}} 
+	;cout << testNum;
+	;return;5
+	;if testNum2, our iterator, is larger than the number we are testing to be prime, exit the loop and print the prime. Otherwise...
+	mov eax, testNum
+	cmp testNum2, eax
+	JAE primeFound
+
+	;keep testing using division...
+	mov ecx, testNum2
+	xor edx, edx
+	div ecx
+	;and if the number is found not be prime, exit the loop, without printing the prime.
+	cmp edx, 0
+	JE exitLoop
+
+	add testNum2, 1
+
+	JMP primeLoop
+	
+	primeFound:
+	call writeInt
+
+	exitLoop:
+	xor eax, eax
+	;call crlf
+
+	ret
+isPrime endp
+
+
+
+
+END main
+
+
+COMMENT !
+Please enter a number: 44
+
+Primes found until the given number:
++2+3+5+7+11+13+17+19+23+29+31+37+41+43
+!

@@ -1,0 +1,209 @@
+;My name is not here
+;10/30/2019
+;this program will input values for num1, num2, and num3
+;then it will calculate ((num1 ^ 3) * num2 + 5 * ( num2 ^ 2)) / num3 
+
+INCLUDE C:\irvine\irvine32.inc
+
+.data
+	num1 dword 10 dup (?)
+	numSum dword 0
+	numRemainder dword 0
+	numStore dword 0
+	numRotate dword 0
+	
+	string11 BYTE "Please enter a number:" , 20h, 0
+	string12 BYTE "The sum is:" , 20h, 0
+	string13 BYTE "The mean is:" , 20h, 0
+	string14 BYTE "The original array:" , 20h, 0
+	string15 BYTE "After a rotation:" , 20h, 0
+	string16 BYTE "Press any key to continue..." , 0ah, 0dh, 0
+	spacestring BYTE 20h, 0
+	remainderstring BYTE "/10" , 0
+
+
+.code
+main proc
+	
+	;populating array with user inputs
+	;please enter a number (x10)
+	mov edx, OFFSET string11
+
+	;setup for loop 1
+	mov esi, OFFSET num1
+	mov ecx, 10
+
+	;loop 1, populate array with use input
+	L1:
+
+	call writeString
+	call ReadInt
+	mov dword ptr [esi], eax	;mov what we read into eax into address at esi
+	add esi, TYPE num1			;increment pointer by array size
+
+	call crlf
+
+	loop L1
+	call crlf
+	;end of loop 1
+
+
+	;the sum is: 
+	mov edx, OFFSET string12
+	call writeString
+
+	;setup for loop 2
+	mov esi, OFFSET num1
+	mov ecx, 10
+	mov numSum, 0
+
+	;loop 2, sum all elements together
+	L2:
+	mov dword ptr eax, [esi]	;move what the address in esi points to eax
+	add esi, TYPE num1			;increment pointer
+	add numSum, eax				;add what is in eax, hopefully the desired array element, to numSum
+	loop L2
+
+	;print sum
+	mov eax, numSum
+	call writeDec
+	call crlf
+	call crlf
+	;end of loop 2
+
+
+
+	;The mean is:
+	;I'm pretty sure the array is always supposed to have 10 numbers, so we can just div by 10
+	; diving by edx causes an error so I use ebx
+	;I also have to use edx to print out a space, so I move the remainder to a variable instead
+	mov ebx, 10	
+	xor edx, edx
+	div ebx
+	mov numRemainder, edx
+	mov edx, OFFSET string13
+	call writestring
+	call writeDec
+	mov edx, OFFSET spacestring
+	call writeString
+	mov eax, numRemainder
+	call writeDec
+	mov edx, OFFSET remainderstring
+	call writeString
+	call crlf
+	call crlf
+	
+
+
+	;The original array:
+	mov edx, OFFSET string14
+	call writeString
+
+	;setup for loop 4
+	mov esi, OFFSET num1
+	mov ecx, 10
+	mov edx, OFFSET spacestring
+
+	;loop 4, print out the contents of array
+	L4:
+	mov dword ptr eax, [esi] ;you know the drill
+	add esi, TYPE num1
+	call writeDec
+	call writeString
+	loop L4
+
+	call crlf
+	call crlf
+			
+
+	
+	;ROTATE THE ARRAY.	
+	;printint out the message "after a rotation:", haven't rotated yet
+	;just printing. I have not yet rotated anything.
+
+	
+	;loop 5, ROTATE THE ARRAY. 
+
+	;preparing everything before we rotate
+	mov esi, OFFSET num1
+	mov ecx, 10			;setting to 10 will go out of bounds
+	xor ebx, ebx		;I am going to use this for my nested loops
+	mov edx, OFFSET spacestring
+
+	mov esi, OFFSET num1	;esi points to first number of array
+	mov edi, OFFSET num1	;edi point to esi
+
+
+	L5: 
+	mov edx, OFFSET string15
+	call writeString
+
+	;this is here to save variables and set up iterators for the nested loop
+	
+	mov esi, OFFSET num1
+	mov ebx, ecx
+	mov ecx, 9
+	LoopForLast:
+	add esi, TYPE num1
+	loop LoopForLast
+	mov eax, dword ptr [esi]		;store last element in numStore
+	mov numStore, eax	
+	mov ecx, ebx
+	
+	mov esi, edi
+	mov eax, dword ptr [esi]
+	mov edx, eax
+
+	mov ebx, ecx
+
+	;1 2 3 4 5 6 7 8 9 0
+	;1 1 2 3 4 5 6 7 8 9           
+	;0 1 2 3 4 5 6 7 8 9
+	;0 1 1 2 3 4 5 6 7 8
+	;0 9 1 2 3 4 5 6 7 8
+
+	LoopRotate:				;this is a loop to rotate the numbers
+	
+	add esi, TYPE num1
+	mov edx, dword ptr [esi]
+	mov dword ptr [esi], eax
+	mov eax, edx
+
+	loop LoopRotate
+	mov ecx, ebx				
+
+	mov eax, numStore
+	mov dword ptr [edi], eax
+	add edi, TYPE num1
+
+	mov ebx, ecx		;save iterator
+	mov ecx, 10			;set ecx to array size, which is 10
+	mov edx, OFFSET spacestring
+	mov esi, OFFSET num1
+	L7:					;this is the same as loop 4
+	mov dword ptr eax, [esi] 
+	add esi, TYPE num1	;NOTE THAT THIS INCREMENTS ESI
+	call writeDec
+	call writeString
+	loop L7
+	mov ecx, ebx		;move ebx, which should have saved the iteration, into ecx
+	call crlf
+	sub ebx, 1				;increment ebx, which will become ecx
+	loop L5				
+
+	
+
+
+
+
+
+
+
+	exit
+
+
+
+exit
+main endp
+
+end main

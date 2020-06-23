@@ -1,0 +1,153 @@
+					
+; Description: - basics of procedure calls 
+;              - using registers to pass parameters
+
+INCLUDE c:\irvine\irvine32.inc
+
+
+.data
+	string11 BYTE "Please enter signed integer 1 of 2:" , 20h, 0
+	string12 BYTE "Please enter signed integer 2 of 2:" , 20h, 0
+	string13 BYTE "The sum of your numbers is:" , 20h, 0
+	string14 BYTE "The difference of your numbers is:" , 20h, 0
+	string15 BYTE "Press any Key..." , 20h, 0
+
+	int1 dword 0
+	int2 dword 0
+	ypos byte 12
+.code
+main PROC
+
+	mov ecx, 3
+	L1:
+		;clearscreen and set ypos to middle of screen
+		call clrscr
+		mov ypos, 12
+		;sets cursor to the middle
+		call locate
+		;calls for user input, and reads user input
+		call input
+		;dislays sum
+		call displaySum
+		;dislays difference
+		call displayDiff
+		;prompts user for key to continue
+		call WaitForKey
+	loop L1
+
+
+exit
+main endp
+
+;sets cursor to the middle
+locate PROC
+
+	mov edx, 0
+	mov dl, 39
+	mov dh, ypos
+	call Gotoxy
+	
+	ret
+locate endp
+
+;prompts for user input, and reads user input
+input PROC
+
+	mov edx, OFFSET string11
+	call writestring
+	call readInt
+	mov int1, eax
+	call clrscr
+	call locate
+	mov edx, OFFSET string12
+	call writestring
+	call readInt
+	mov int2, eax
+	call writestring
+
+	ret
+input endp
+
+
+;dislays sum
+DisplaySum PROC
+
+	mov eax, 0
+	add eax, int1
+	add eax, int2
+	call clrscr
+	call locate
+	mov edx, OFFSET string13
+	call writestring
+	call writeint
+	
+
+	ret
+DisplaySum endp
+
+
+;dislays diff
+DisplayDiff PROC
+	
+	;to move down a line
+	add ypos,1
+	call locate
+
+	mov eax, 0
+	add eax, int1
+	sub eax, int2
+	mov edx, OFFSET string14
+	call writestring
+	call writeint
+	
+
+	ret
+DisplayDiff endp
+
+;prompts user for key to continue
+WaitforKey PROC
+	
+	;move down a line
+	add ypos, 1
+	call locate
+
+	mov edx, offset string15
+	call writeString
+
+	;this was incredibly difficult to figure out how to do.
+	LookforKey:
+		mov eax, 50
+		call Delay
+		call readkey
+
+		jz  LookForKey
+		
+
+	ret
+WaitforKey endp
+
+END main
+
+;Please enter signed integer 1 of 2: 1
+
+;Please enter signed integer 2 of 2: 2
+
+;The sum of your numbers is: +3
+;The difference of your numbers is: -1
+;Press any Key... 
+
+;Please enter signed integer 1 of 2: 3
+
+;Please enter signed integer 2 of 2: 4
+
+;The sum of your numbers is: +7   
+;The difference of your numbers is: -1
+;Press any Key... 
+
+;Please enter signed integer 1 of 2: 2
+
+;Please enter signed integer 2 of 2: 5
+
+;The sum of your numbers is: +7   
+;The difference of your numbers is: -3
+;Press any Key... 

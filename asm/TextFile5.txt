@@ -1,0 +1,51 @@
+COMMENT !
+Prints out all prime numbers up to a user given input
+11/14/2019
+!
+
+
+INCLUDE c:\irvine\irvine32.inc
+
+
+.data
+
+	string11 BYTE "Please enter a number:" , 20h, 0
+	string12 BYTE "Primes found until the given number:" , 20h, 0
+	string13 BYTE "No primes." , 20h, 0
+
+
+	userNum dword 0
+	testNum dword 0
+	testNum2 dword 0
+
+.code
+main PROC
+	
+	
+
+	call isPrime
+	
+
+exit
+main endp
+
+isPrime PROC
+
+	
+
+ret 8
+
+isPrime endp
+
+
+
+
+END main
+
+
+COMMENT !
+Please enter a number: 44
+
+Primes found until the given number:
++2+3+5+7+11+13+17+19+23+29+31+37+41+43
+!

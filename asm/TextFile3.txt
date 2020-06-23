@@ -1,0 +1,47 @@
+mov esi, OFFSET num1	;esi points to first number of array
+	mov edi, OFFSET num1	;edi point to esi
+
+	mov ebx, ecx	;save iterator...
+	mov ecx, 9		;note this only executes 9 times. This way edi won't go out of bounds
+	
+	add edi, TYPE num1			;edi now equals esi + type num1
+	mov dword ptr eax, [edi]	;move second number to eax
+	mov dword ptr [esi], eax	;move eax (containing the second number) to first number
+	
+	add esi, TYPE num1			;increment esi to edi's position
+						;except the last item.
+	mov ecx, ebx				;mov ebx to ecx, to keep iterator
+
+
+
+	add edi, TYPE num1			;edi now equals esi + type num1
+	mov dword ptr eax, [edi]	;move second number to eax
+	mov dword ptr [esi], eax	;move eax (containing the second number) to first number
+	
+	add esi, TYPE num1			;increment esi to edi's position
+								;the last item is likely garbage
+
+
+
+
+
+
+
+
+	mov ebx, ecx			;save iterator
+	mov ecx, 9				;set to 9. Setting to 10 will go out of bounds
+	mov esi, OFFSET num1	;esi points to first number of array
+	mov eax, dword ptr [esi]	;save the first number
+	mov edx, 0
+
+	;1 2 3 4 5 6 7 8 9 0
+
+	LoopRotate:				;this is a loop to rotate the numbers
+
+	add esi, TYPE num1
+	mov edx, dword ptr [esi]	;save the number I'm about to replace
+	mov dword ptr [esi], eax	;replace that number with what is in edx
+	mov eax, edx				;load number I saved into eax
+
+	loop LoopRotate
+	mov ecx, ebx				;to retain ecx

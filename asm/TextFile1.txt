@@ -1,0 +1,114 @@
+;My name is not here
+;10/16/2019
+;this program will input values for num1, num2, and num3
+;then it will calculate ((num1 ^ 3) * num2 + 5 * ( num2 ^ 2)) / num3 
+
+INCLUDE C:\irvine\irvine32.inc
+
+.data
+	num1 dword 1
+	num2 dword 2
+	num3 dword 3
+	string1 BYTE "num1: ", 0ah, 0dh, 0
+	string2 BYTE "num2: ", 0ah, 0dh, 0
+	string3 BYTE "num3: ", 0ah, 0dh, 0
+	string4 BYTE "Please enter the value for..." , 0ah, 0dh, 0
+	string5 BYTE "R" , 0ah, 0dh, 0
+
+.code
+main proc
+
+	;Please enter the value for...
+	mov edx , OFFSET string4
+	call writeString			
+
+	;num1
+	mov edx , OFFSET string1
+	call writeString	
+     
+	call ReadInt
+	mov  num1 , eax
+	call crlf
+
+	;Please enter the value for...
+	mov edx , OFFSET string4
+	call writeString	
+
+	;num2
+	mov edx , OFFSET string2
+	call writeString	
+
+	call ReadInt
+	mov  num2 , eax
+	call crlf
+	
+	;Please enter the value for...
+	mov edx, OFFSET string4
+	call writeString		
+  
+	;num3
+	mov edx, OFFSET string3
+	call writeString	
+
+	call ReadInt
+	mov  num3 , eax
+	call crlf
+
+	;calculation here!  ( (num1 ^ 3) * num2 + 5 * ( num2 ^ 2) ) / num3.
+
+	;num1 ^ 3
+	mov eax , num1
+	mul num1
+	mul num1
+
+	;(num1*3)*num2
+	mul num2
+	mov num1, eax
+
+	; 5*(num2^2)
+	mov eax , num2
+	mul num2
+	mov num2 , eax
+	mov eax , 5
+	mul num2
+	mov num2 , eax
+
+	;(num1 ^ 3) * num2 + 5 * ( num2 ^ 2) )
+	mov eax , num1
+	add eax, num2
+
+	; / num3
+	div num3
+	call writeInt
+	mov eax , edx
+	call crlf
+	;R
+	mov edx , OFFSET string5
+	call writeString	
+	call writeInt
+
+
+	exit
+
+
+
+exit
+main endp
+
+end main
+
+;Please enter the value for...
+;num1:
+;1
+
+;Please enter the value for...
+;num2:
+;2
+
+;Please enter the value for...
+;num3:
+;3
+
+;+7
+;R
+;+1
