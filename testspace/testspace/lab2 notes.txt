@@ -1,0 +1,277 @@
+// testspace.cpp : This file contains the 'main' function. Program execution begins and ends there.
+//
+
+#include <iostream>
+#include <vector>
+#include <string>
+#include <bitset>
+#include <iomanip>
+#include <sstream>
+#include <algorithm>
+#include <stdio.h>
+#include <string.h>
+#include <regex>
+#include <signal.h>
+
+//84B062548848
+//100001001011000001100010010101001000100001001
+//100001001011000001100010010101001000100001001000
+//100001001011000001100010010101001000100001001000
+//001110000011010001000010001100000011011000110010001101010011010000111000001110000011010000111000
+
+using namespace std;
+
+struct entry39 {
+public:
+	char character;
+	string barcodeString;
+	bitset<9> barcodeBitset;
+	entry39() {
+		character = 0;
+		barcodeString = '0';
+		barcodeBitset.set();
+	}
+	entry39(char character, string string) {
+		this->character = character;
+		this->barcodeString = string;
+		this->barcodeBitset = bitset<9>(this->barcodeString);
+	}
+};
+
+int main() {
+	raise(SIGSEGV);
+
+
+}
+
+// program pertaining to regex and searching through a string to create a vector
+/*
+	int main()
+	{
+		string fubar = "' '\
+011000100\
+\
+'-'\
+010000101\
+\
+'+'\
+010001010\
+\
+'$'\
+010101000\
+\
+'%'\
+000101010\
+\
+'*'\
+010010100\
+\
+'.'\
+110000100\
+\
+'/'\
+010100010\
+\
+'0'\
+000110100\
+\
+'1'\
+100100001\
+\
+'2'\
+001100001\
+\
+'3'\
+101100000\
+\
+'4'\
+000110001\
+\
+'5'\
+100110000\
+\
+'6'\
+001110000\
+\
+'7'\
+000100101\
+\
+'8'\
+100100100\
+\
+'9'\
+001100100\
+\
+'A'\
+100001001\
+\
+'B'\
+001001001\
+\
+'C'\
+101001000\
+\
+'D'\
+000011001\
+\
+'E'\
+100011000\
+\
+'F'\
+001011000\
+\
+'G'\
+000001101\
+\
+'H'\
+100001100\
+\
+'I'\
+001001100\
+\
+'J'\
+000011100\
+\
+'K'\
+100000011\
+\
+'L'\
+001000011\
+\
+'M'\
+101000010\
+\
+'0'\
+000010011\
+\
+'O'\
+100010010\
+\
+'P'\
+001010010\
+\
+'Q'\
+000000111\
+\
+'R'\
+100000110\
+\
+'S'\
+001000110\
+\
+'T'\
+000010110\
+\
+'U'\
+110000001\
+\
+'V'\
+011000001\
+\
+'1'\
+111000000\
+\
+'X'\
+010010001\
+\
+'Y'\
+110010000\
+\
+'Z'\
+011010000\
+";
+
+cout << fubar;
+
+vector<entry39> dict39;
+
+char entryChar;
+string entryCode;
+regex reg5 ("'(.)'[.\n\s]*([0-9]{9})");
+//regex reg("<Product>\n\t<Barcode>([0-1]{9}[0-1]{9}[0-1]{9}[0-1]{9}[0-1]{9}[0-1]{3})</Barcode>\n\t<Price>([0-9,.]+)</Price>\n<\/Product>");
+smatch matches;
+string::const_iterator searchStart = (fubar.begin());
+
+while (regex_search(searchStart, fubar.cend(), matches, reg5)) {
+	entryChar = matches.str(1)[0];
+	entryCode = matches.str(2); // pretty sure this line is useless
+	cout << entryChar << " " << entryCode << endl;
+
+	dict39.push_back(entry39(entryChar, entryCode));
+	searchStart = matches.suffix().first;
+}
+
+for_each(dict39.begin(), dict39.end(), [&dict39](entry39 k) {
+	cout << k.character << " " << k.barcodeString << " " << k.barcodeBitset << endl;
+	});
+
+
+	}
+*/
+
+//program pertaining to using std::int, std::hex, and bitsets to get binary barcodes
+/*
+int main()
+{
+	string s = "011000100";
+
+	//cout << stoi(s) << endl;
+
+
+	string h = "84B062548848";
+	long long int d = stoll(h, 0, 16);
+
+	//cout << stoll(h, 0, 16) << endl;
+	//cout << d << endl;
+
+	string binary = bitset<48>(d).to_string(); //to binary
+	cout << binary << endl;
+
+	string barcode;
+	string productName;
+	barcode.resize(9);
+	productName.resize(5);
+
+	
+	int k = 0;
+	for (int i = 0; i < binary.size(); i++) {
+		/*
+		if (i % 9 == 0) {
+			cout << binary.substr(i, 9) << "asdf" << endl;
+		}
+		*/
+
+//		if (k == 9) { 
+	//		cout << barcode <<  " jkl; " << endl;
+		//	k = 0; }
+	//	barcode[k] = binary[i];
+	//	k++;
+
+//	}
+//*/
+
+
+
+		
+
+
+	/*
+		for (int i = 0; i < s.size(); i++) {
+			c = s.at(i);
+			for (int s = 7; s >= 0; s--) {
+				cout << (( c >> s) & 1);
+			}
+		}
+	*/
+//}
+
+// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
+// Debug program: F5 or Debug > Start Debugging menu
+
+// Tips for Getting Started: 
+//   1. Use the Solution Explorer window to add/manage files
+//   2. Use the Team Explorer window to connect to source control
+//   3. Use the Output window to see build output and other messages
+//   4. Use the Error List window to view errors
+//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
+//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
