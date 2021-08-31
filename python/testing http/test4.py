@@ -10,31 +10,16 @@ def enter(event):
     win.attributes('-alpha', 1.0)
 def leave(event):
     win.attributes('-alpha', 0.4)
-    
-sText1 = scrolledtext.ScrolledText(win, 
-                                      wrap = tk.WORD, 
-                                      width = 50, 
-                                      height = 10,
-                                      # textvariable = "test asdfasdf",
-                                      state = 'disabled',
-                                      )
-sText1.bind("<1>", lambda event: sText1.focus_set())
-sText1.grid(row = 1, column = 0, pady = 10, padx = 10)
-sText1.configure(state = 'normal')
-sText1.insert("end","hello")
-sText1.configure(state = 'disabled')
+def onClick():
+    print(qwer.get())
 
+asdf = tk.Button(win, text="1234", command = onClick)
+asdf.grid(row=0)
 
-sText2 = scrolledtext.ScrolledText(win, 
-                                      wrap = tk.WORD, 
-                                      width = 50, 
-                                      height = 10,
-                                      # textvariable = "test asdfasdf",
-                                      # state = 'disabled',
-                                      )
-sText2.grid(row = 1, column = 1, pady = 10, padx = 10)
-sText2.insert("end","hello")
+qwer = tk.Entry(win, text = "default")
+qwer.grid(row=2)
 
+print(qwer.get())
 
 # #make window transparent.
 # win.attributes('-alpha', 0.4)

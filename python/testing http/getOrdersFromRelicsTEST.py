@@ -1,8 +1,7 @@
 import requests
 import json
 from pprint import *
-
-wf = "https://api.warframe.market/v1"
+import time
 
 headers = {
         "platform": "PC",
@@ -15,9 +14,6 @@ class Order:
     #IGN, onlineStatus, rep, platinum, quantity, order_type
     #might initialize mod_rank
     
-    #If you will notice below, there is a block of code in the main function
-    #therefore, you (me in the future) might want to change this into a function that takes a json, and then creates class variables based on what exists in the json.
-    #that might be more memory intesnive, unless we were to only check the json for a few set variables... but that might take us back to the reason 
     def __init__(self, rank = 0, quantity = 1, **kwargs):
         for key, value in kwargs.items():
             setattr(self, key, value)
@@ -44,15 +40,12 @@ class Order:
              '\n')
 
 
+#class Relic(): # maybe make this, maybe.
 
-def getItemOrders():
+def getItemOrders(itemName):
 
-    x = requests.get(url = wf + "/items/" + str(input("Enter item name: ")).lower().replace(' ', '_') + "/orders", headers =  headers)
-    # pprint (x.status_code)
-    # pprint (x.json())
-    # pprint (json.loads(x.json()))
-    # pprint ( json.load(x.json())['payload']['orders']['platinum'] )
-    # pprint(x.json()['payload']['orders'])
+    wf = "https://api.warframe.market/v1"
+    x = requests.get(url = wf + "/items/" + str(itemName).lower().replace(' ', '_').strip('\'') + "/orders", headers =  headers)
 
     buyList = list() #buy order price list
     sellList = list() # sell order price list
@@ -63,16 +56,10 @@ def getItemOrders():
 
 
     for elem in x.json()['payload']['orders']:
-        #tempDict = elem(dictionary)
         
         #TODO: This entire block of code is a monstrosity. Might want to change it.
         if elem['user']['status'] != 'offline':
-            # print("Online? :", elem['user']['status'], 
-                 # "| Plat: ", elem['platinum'], 
-                 # # " | Creation Date: " , elem['creation_date'] 
-                 # "| Buy/Sell: " , elem['order_type'] , 
-                 # )
-            #create buyList and buyOrderList
+            
             if elem['order_type'] == 'buy':
                 buyList.append(elem['platinum'])
                 buyOrderList.append(Order(**{
@@ -110,20 +97,36 @@ def getItemOrders():
                 # 'order_type':elem['order_type']
             # }))
 
-        
-    # print (buyList)
-    # print (sellList)
-    # print (buyOrderList)
-    # print (sellOrderList)
-
     for elem in buyOrderList:
         print(elem)
 
     for elem in sellOrderList:
         print(elem)
     
+def getRelicItems():
+    #https://github.com/WFCD/warframe-drop-data#api-endpoints
+    
+    wd = "https://drops.warframestat.us/"
+    
+    userTier = str(input("Enter relic tier (Lith, Meso, Neo, Axi): "))
+    userRelic = str(input("Enter relic name (Letter then number): ")).upper()
+    #userRefinement = str(input("Enter relic Refinement Level (Intact, Exceptional, Flawless, Radiant)"))
+    
+    y = requests.get(url = wd + "/data/relics/" + userTier + '/' + userRelic + ".json")
+    pprint(y.json())
+    
+    for elem in y.json()['rewards']['Intact']:
+        print(elem['itemName'].replace("Chassis Blueprint","Chassis").replace("Neuroptics Blueprint","Neuroptics").replace("Systems Blueprint","Systems"))
+        getItemOrders(elem['itemName'].replace("Chassis Blueprint","Chassis").replace("Neuroptics Blueprint","Neuroptics").replace("Systems Blueprint","Systems"))
+        time.sleep(1)
+
+    
+    #for elem in ItemList:
+        #getItemOrders():
+
+    
 def main():
-    getItemOrders()
+    getRelicItems()
 
 if __name__ == "__main__":
     main()
