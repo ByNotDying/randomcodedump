@@ -1,0 +1,70 @@
+<html>
+<head>
+<script>
+//Program Purpose: track how many times colored buttons are pressed. Author: Luke Liu. Date: 10/25/2020.
+
+
+//These keep track of how many times the buttons were pressed
+var redNumCount = 0;
+var blueNumCount = 0;
+var blackNumCount = 0;
+
+//this is the coloredButton class that keeps track of the name of the button and the times it was pressed
+function coloredButton(Color, NumberOfButton, ButtonName){
+	this.Color = Color;
+	this.NumberofButton = NumberOfButton;
+	this.ButtonName = ButtonName;
+}
+
+//these are the class objects. I don't use them in this case because I misunderstood the assignment, but I'm semi-sure they're functional.
+var redButton = new coloredButton("Red", 0, "Red");
+var blueButton = new coloredButton("Blue", 0, "Blue");
+var blackButton = new coloredButton("Black", 0, "Black");
+
+
+
+</script>
+</head>
+<body>
+<script>
+function display(Color, NumberOfButton, ButtonName){
+
+	//this entire if block is completely unnecessary, but I think you wanted us to do something like this in the rubric. 
+	var textColor = "Green";
+	if(Color == "Red"){
+	textColor = "Red";
+	}
+	else if (Color == "Blue"){
+	textColor = "Blue";
+	}
+	else if (Color == "Black"){
+	textColor = "Black";
+	}
+	
+	//(To be honest, I think I'm going about this the wrong way, but I don't know how I can set the color of the entire text to a variable.)
+	var countUp = 1;
+	for(countUp = 1; NumberOfButton > 0; NumberOfButton--){
+	document.write( "Pressed ".fontcolor(textColor)+ ButtonName.fontcolor(textColor) + " Button: ".fontcolor(textColor) + countUp.toString().fontcolor(textColor) + "<br></br>");
+	countUp++;
+	}
+
+}
+</script>
+
+<form>
+
+<input type="button" value="Red" onclick="redNumCount++; redButton.NumberofButton++;">
+<br></br>
+<input type="button" value="Blue" onclick="blueNumCount++; blueButton.NumberofButton++;">
+<br></br>
+<input type="button" value="Black" onclick="blackNumCount++; blackButton.NumberofButton++;">
+<br></br>
+<input type="button" value="Show Counter" onclick = "display(&quot;Red&quot;,redNumCount,&quot;Red&quot;);display(&quot;Blue&quot;,blueNumCount,&quot;Blue&quot;);display(&quot;Black&quot;,blackNumCount,&quot;Black&quot;);">
+
+
+
+</form>
+</body>
+
+
+</html>

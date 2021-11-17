@@ -1,0 +1,38 @@
+<html>
+<head>
+<script>
+document.title = "Project 1 - Build Your Name"
+//this returns concatenated string variables lastName and firstName as the string fullName
+function firstFunction(lastName, firstName){
+return firstName + " " + lastName;
+}
+//this prints out "My name in red is:" in blue, then prints out the string fullName in red
+function secondFunction(fullName){
+document.write("<p>My name in red is: ".fontcolor("Blue") + fullName.fontcolor("Red") + "</p>");
+}
+</script>
+</head>
+<body>
+<script>
+var fullName = "Luke Liu";
+var firstName = "Luke";
+var lastName = "Liu";
+
+//need to print out the other stuff
+document.write("<h1> Welcome to my Name Page </h1> \n");
+
+/*
+so what this does is call secondFunction while passing what firstFunction returns.
+because firstFunction returns a string, it's like I called secondFunction
+in this way: secondFunction(fullName); where fullName is the concatenated string.
+*/
+secondFunction(firstFunction(lastName,firstName));
+
+document.write("\n Thank you!");
+
+</script>
+
+
+
+</body>
+</html>

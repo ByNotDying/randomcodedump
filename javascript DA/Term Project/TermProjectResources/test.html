@@ -1,0 +1,110 @@
+
+<html>
+<body>
+
+
+<script>
+document.write("OK");
+var keyArray = new Array(7,7,7,7);
+var userArray = new Array;
+var matchArray = new Array(0);
+var guessesUsed = 0;
+
+function Help(){
+	
+}
+
+function getRandNumber(){
+return Math.floor(Math.random() * 5);
+}
+
+function clearAnswer(){
+	userArray = new Array;
+}
+
+function makeRandomKeySequence(){
+	var keyArray = new Array;
+	keyArray.push(Math.floor(Math.random() * 5));
+	keyArray.push(Math.floor(Math.random() * 5));
+	keyArray.push(Math.floor(Math.random() * 5));
+	keyArray.push(Math.floor(Math.random() * 5));
+	return keyArray;
+}
+
+
+function addUserAnswer(userColor){
+	userArray.push(userColor);
+}
+
+function resetMatches(){
+	matchArray = new Array(0);
+}
+
+function restartGame(){
+	makeRandomKeySequence();
+	resetMatches();
+	userArray = new Array; //reset userArray
+	numGuessesUsed = 0;
+}
+
+function printMatches(){
+	var i;
+	for (i = 0; i <= 3; i++){
+		document.write(matchArray[i]);
+	}
+}
+
+function checkGameState(){
+}
+
+function loseMessage(){
+	if (guessesUsed == 9){
+	
+	}
+}
+
+function winMessage(){
+}
+
+function gameOver(){
+}
+
+function checkAnswers() {
+	resetMatches();
+	var i;
+	var j;
+	var tempKeyArray = keyArray;
+	var tempUserArray = userArray;
+	var tempMatchArray = matchArray;
+	for (i = 0; i <= 3; i++){
+		if (tempUserArray[i] == tempKeyArray[i]){
+			matchArray.push(2);
+			tempKeyArray[i] = i*7+7;
+			tempUserArray[i] = i*8+7;
+		}
+		else {
+			for (j = 0; j <=3; j++){
+				if (tempUserArray[i] == tempKeyArray[j]){
+					matchArray.push(1);
+					tempKeyArray[j] = i*7+7;
+					tempUserArray[i] = i*7+8;
+				}
+			}
+		}
+		if (matchArray == tempMatchArray){
+			matchArray.push(0);
+			tempUserArray[i] = i*7+8;
+		}
+		tempUserArray[i] = i*7+8;
+	}
+	
+	userArray = new Array; //reset userArray
+}
+
+
+
+
+</script>
+
+</body>
+</html>

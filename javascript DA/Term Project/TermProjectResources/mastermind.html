@@ -1,0 +1,153 @@
+<HTML>
+<HEAD>
+<TITLE>
+Term Project - Plays Mastermind
+</TITLE>
+<BODY onload=>
+<FORM name="myForm" >
+<style>
+.button {
+ color: black;
+ padding: 5px 5px;
+ text-decoration: none;
+ margin: 4px 2px;
+ cursor: pointer;
+ font-family: "Courier New";
+ font-size: 120%;
+ font-weight: bold;
+ border-style: solid;
+ border-width: 2px;
+ border-color: black;
+}
+h1 {
+ text-align: center;
+ }
+</style>
+<H1>Term Project - Mastermind (Luke Liu)</H1>
+<FONT face="courier new" size="12">
+<B>
+<table align=center id="big" border="1">
+ <tr>
+ <td>
+ <table align=center id="colors" border="1" >
+ <tr>
+ <td>
+ &nbsp;&nbsp;
+ <center>
+ ================== Instructions ===================
+ <BR>
+ Click on one of Six Colors to select, then click on<BR>
+ Answer Box to set, and Click "Check Answer" button.<BR>
+ </center>
+
+<center>
+<img id = "bluecheck" src="BlueRectangle.GIF" onclick="addUserAnswer(0)" onerror="alert('Please use a browser that can display images, else this will not work')" align = "middle" />
+<img src="WhiteRectangle.GIF" onclick="addUserAnswer(1)" align = "middle" />
+<img src="RedRectangle.GIF" onclick="addUserAnswer(2)" align = "middle" />
+<br>
+<img src="PurpleRectangle.GIF" onclick="addUserAnswer(3)" align = "middle" />
+<img src="GreenRectangle.GIF" onclick="addUserAnswer(4)" align = "middle" />
+<img src="YellowRectangle.GIF" onclick="addUserAnswer(5)" align = "middle" />
+</center>
+
+ </td>
+ </tr>
+ <tr>
+ <td>
+ &nbsp;&nbsp;
+  <center>
+ =================== Answer Boxes ==================
+  </center>
+
+<center>
+<img id = "ansBox1" src="QuestionRectangle.GIF" onclick="" align = "middle" />
+<img id = "ansBox2" src="QuestionRectangle.GIF" onclick="" align = "middle" />
+<img id = "ansBox3" src="QuestionRectangle.GIF" onclick="myfunction()" align = "middle" />
+<img id = "ansBox4" src="QuestionRectangle.GIF" onclick="myfunction()" align = "middle" />
+
+
+</center>
+
+ <BR>&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+ </td>
+ </tr>
+ <tr>
+ <td><BR>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <INPUT type="button" onClick="checkAnswers();" name="check" value="Check Answer">
+
+ <!-- other buttons here -->
+ <INPUT type="button" onClick="Help();" name="check" value="Help">
+ <INPUT type="button" onClick="refreshPage();" name="check" value="Restart Game">
+
+ </td>
+ </tr>
+ </table>
+ </td>
+ <td>
+ <table align=center id="results" border="1" >
+ <tr>
+ <th align=center><b>Guesses:</b></td>
+ <th align=center><b>Clues:</b></td>
+ <th align=center><b>Answer:</b></td>
+ </tr>
+ <tr>
+ <td>1&nbsp;&nbsp;<INPUT type=text size=10 name=Data1 readonly="readonly" value = ""></td>
+ <td><INPUT type=text size=10 name=Clue1 readonly="readonly"></td>
+ <td><INPUT type=text size=10 name=Answer readonly="readonly" value = ""></td>
+
+ </tr>
+ <!-- other tr td's here for each Data and Clue; 10 in all -->
+ <tr>
+ <td>2&nbsp;&nbsp;<INPUT type=text size=10 name=Data2 readonly="readonly"></td>
+ <td><INPUT type=text size=10 name=Clue2 readonly="readonly"></td>
+ </tr>
+ <tr>
+ <td>3&nbsp;&nbsp;<INPUT type=text size=10 name=Data3 readonly="readonly"></td>
+ <td><INPUT type=text size=10 name=Clue3 readonly="readonly"></td>
+ </tr>
+ <tr>
+ <td>4&nbsp;&nbsp;<INPUT type=text size=10 name=Data4 readonly="readonly"></td>
+ <td><INPUT type=text size=10 name=Clue4 readonly="readonly"></td>
+ </tr>
+ <tr>
+ <td>5&nbsp;&nbsp;<INPUT type=text size=10 name=Data5 readonly="readonly"></td>
+ <td><INPUT type=text size=10 name=Clue5 readonly="readonly"></td>
+ </tr>
+ <tr>
+ <td>6&nbsp;&nbsp;<INPUT type=text size=10 name=Data6 readonly="readonly"></td>
+ <td><INPUT type=text size=10 name=Clue6 readonly="readonly"></td>
+ </tr>
+ <tr>
+ <td>7&nbsp;&nbsp;<INPUT type=text size=10 name=Data7 readonly="readonly"></td>
+ <td><INPUT type=text size=10 name=Clue7 readonly="readonly"></td>
+ </tr>
+ <tr>
+ <td>8&nbsp;&nbsp;<INPUT type=text size=10 name=Data8 readonly="readonly"></td>
+ <td><INPUT type=text size=10 name=Clue8 readonly="readonly"></td>
+ </tr>
+ <tr>
+ <td>9&nbsp;&nbsp;<INPUT type=text size=10 name=Data9 readonly="readonly"></td>
+ <td><INPUT type=text size=10 name=Clue9 readonly="readonly"></td>
+ </tr>
+ <tr>
+ <td>10&nbsp;<INPUT type=text size=10 name=Data10 readonly="readonly"></td>
+ <td><INPUT type=text size=10 name=Clue10 readonly="readonly"></td>
+ </tr>
+ 
+ </table>
+ </td>
+</tr>
+ <tr><td><B><input type=text size=100 name=sInfo readonly="readonly"></B></td></tr>
+</table>
+</FONT>
+</FORM>
+<SCRIPT src="mastermind.js"></SCRIPT>
+</BODY>
+</HTML>

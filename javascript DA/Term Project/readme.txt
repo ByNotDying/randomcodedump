@@ -1,0 +1,1 @@
+please run mastermind.js in TermProjectResources, rather than the outside of it
